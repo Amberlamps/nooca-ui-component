@@ -18,20 +18,24 @@ var gulp = require('gulp');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 
-gulp.task('css', () => {
+gulp.task('watch', () => {
+  gulp.watch('./src/css/**/*.css', ['css']);
+});
+
+function createCssFile(destination) {
   var processors = [
     autoprefixer
   ];
   return gulp.src('./src/css/index.css')
     .pipe(postcss(processors))
-    .pipe(gulp.dest('./'));
-});
+    .pipe(gulp.dest(destination));
+}
 
-gulp.task('watch', () => {
-  gulp.watch('./src/css/**/*.css', ['css']);
-});
+gulp.task('css:development', () => createCssFile('./app/public/css'));
+gulp.task('css:build', () => createCssFile('./'));
 
-gulp.task('development', ['css', 'watch']);
+gulp.task('development', ['css:development', 'watch']);
+gulp.task('build', ['css:build']);
 
 // function createJsFile(sourceFile, destFile, env) {
 //   env = env || 'development';

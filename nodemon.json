@@ -1,0 +1,4 @@
+{
+  "verbose": false,
+  "ignore": ["node_modules", "src", "app/public", "app/views", "app/bin"]
+}
