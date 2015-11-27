@@ -15,7 +15,6 @@ dust.config.cache = false;
 
 // Define a custom `onLoad` function to tell Dust how to load templates
 dust.onLoad = (tmpl, cb) => {
-  debug(tmpl);
   fs.readFile(path.join('./app/views', path.relative('/', path.resolve('/', tmpl))), {
     encoding: 'utf8'
   }, cb);

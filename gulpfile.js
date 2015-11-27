@@ -9,7 +9,7 @@ var util = require('gulp-util');
 var rename = require("gulp-rename");
 //var config = require('./config.js');
 var babel = require('gulp-babel');
-//var pkg = require('./package.json');
+var pkg = require('./package.json');
 var browserSync = require('browser-sync');
 var dust = require('gulp-dust');
 
@@ -19,7 +19,8 @@ var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 
 gulp.task('watch', () => {
-  gulp.watch('./src/css/**/*.css', ['css']);
+  gulp.watch('./src/css/**/*.css', ['css:development']);
+  gulp.watch('./src/js/**/*.js', ['js:development']);
 });
 
 function createCssFile(destination) {
@@ -34,7 +35,23 @@ function createCssFile(destination) {
 gulp.task('css:development', () => createCssFile('./app/public/css'));
 gulp.task('css:build', () => createCssFile('./'));
 
-gulp.task('development', ['css:development', 'watch']);
+gulp.task('js:development', () => {
+
+  var bundler = browserify({
+    entries: ['./src/js/index.js'],
+    debug: true
+  });
+
+  return bundler
+  .bundle()
+  .pipe(source('./' + pkg.name + '-' + pkg.version + '.js'))
+  .pipe(buffer())
+  .pipe(babel())
+  .pipe(gulp.dest('./app/public/dist/js/'));
+
+});
+
+gulp.task('development', ['js:development', 'css:development', 'watch']);
 gulp.task('build', ['css:build']);
 
 // function createJsFile(sourceFile, destFile, env) {

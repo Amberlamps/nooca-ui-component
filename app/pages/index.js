@@ -15,7 +15,7 @@ var debug = require('debug')('pages');
 router.use('/', (req, res, next) => {
   debug('getting index page');
   res.set('Content-Type', 'text/html');
-  dust.stream("module.html", {}).pipe(res);
+  dust.stream("templates/module.html", {}).pipe(res);
 });
 
 
