@@ -1,5 +1,6 @@
 node_modules
 /app
 /src/css
+/src/css/js/index.js
 gulpfile.js
 nodemon.json
