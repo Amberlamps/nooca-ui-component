@@ -69,6 +69,7 @@ class Element {
     this.parent = parent;
     this.element = element;
 
+    this.element.innerHTML = '<div class="selectize-container"><input type="text" class="selectize-input" /></div>';
     this.input = this.element.getElementsByTagName("input")[0]
     this.container = this.element.querySelectorAll('.selectize-container')[0];
 
