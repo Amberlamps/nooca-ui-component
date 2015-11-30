@@ -3,9 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Testpage</title>
+  <link rel="stylesheet" href="/css/{pkg.name}-{pkg.version}.css"></link>
 </head>
 <body>
-  {+moduleContent/}
-  <script type="text/javascript" src="/dist/js/index.js"></script>
+  <div style="width: 300px">
+    {+moduleContent/}
+  </div>
+  <script type="text/javascript" src="/js/{pkg.name}-{pkg.version}.js"></script>
 </body>
 </html>

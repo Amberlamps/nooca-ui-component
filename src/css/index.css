@@ -1,3 +1,17 @@
+@import "module.css";
+
 body {
-  background-color: red;
+  font-family: "Lato";
+  font-weight: 400;
+  color: #000;
+}
+
+.selectize {
+
+  border-width: 1px;
+  border-color: #ccc;
+  border-style: solid;
+
+  @mixin selectize {}
+
 }

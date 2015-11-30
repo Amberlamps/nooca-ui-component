@@ -2,11 +2,17 @@
  * Test script.
  */
 
-var Selectize = require('./module.js');
-var selectize = new Selectize();
+var selectize = require('./module.js');
 
-selectize
-.on('ready', () => {
-  console.log(arguments);
-  console.log('ready');
+selectize('.selectize')
+.add([])
+.on('add', (value, source) => {
+})
+.on('delete', (value, source) => {
+})
+.on('change', (value, source) => {
+})
+.on('error', (err) => {
+})
+.on('ready', (data) => {
 });

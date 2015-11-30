@@ -17,23 +17,39 @@ var dust = require('gulp-dust');
 var gulp = require('gulp');
 var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
+var mqpacker = require('css-mqpacker');
+var atImport = require("postcss-import");
+var mixins = require('postcss-mixins');
+var nested = require('postcss-nested');
+var vars = require('postcss-simple-vars');
+var magician = require('postcss-font-magician');
 
 gulp.task('watch', () => {
   gulp.watch('./src/css/**/*.css', ['css:development']);
   gulp.watch('./src/js/**/*.js', ['js:development']);
 });
 
-function createCssFile(destination) {
+gulp.task('css:development', () => {
   var processors = [
-    autoprefixer
+    atImport,
+    mixins,
+    nested,
+    vars,
+    magician,
+    autoprefixer,
+    mqpacker
   ];
   return gulp.src('./src/css/index.css')
     .pipe(postcss(processors))
-    .pipe(gulp.dest(destination));
-}
+    .pipe(rename(pkg.name + '-' + pkg.version + '.css'))
+    .pipe(gulp.dest('./app/public/css'));
+});
 
-gulp.task('css:development', () => createCssFile('./app/public/css'));
-gulp.task('css:build', () => createCssFile('./'));
+gulp.task('css:build', () => {
+  return gulp.src('./src/css/module.css')
+    .pipe(rename('index.css'))
+    .pipe(gulp.dest('./'));
+});
 
 gulp.task('js:development', () => {
 
@@ -46,9 +62,21 @@ gulp.task('js:development', () => {
   .bundle()
   .pipe(source('./' + pkg.name + '-' + pkg.version + '.js'))
   .pipe(buffer())
-  .pipe(babel())
-  .pipe(gulp.dest('./app/public/dist/js/'));
+  .pipe(babel({
+    compact: false,
+    presets: ['es2015']
+  }))
+  .pipe(gulp.dest('./app/public/js/'));
 
+});
+
+gulp.task('serve', function() {
+  browserSync.init(null, {
+    proxy: "http://localhost:3001",
+      files: ["app/public/**/*.*", "app/views/**/*.*"],
+      browser: "google chrome",
+      port: 7000
+  });
 });
 
 gulp.task('development', ['js:development', 'css:development', 'watch']);

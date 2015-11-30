@@ -10,7 +10,7 @@ var fs = require('fs');
 
 var dust = require('dustjs-linkedin');
 
-dust.config.whitespace = true;
+dust.config.whitespace = false;
 dust.config.cache = false;
 
 // Define a custom `onLoad` function to tell Dust how to load templates
