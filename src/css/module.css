@@ -1,0 +1,35 @@
+@define-mixin selectize $text: #fff, $bg: #028090 {
+
+  .selectize-container {
+
+    display: inline-block;
+
+  }
+
+  .selectize-container .selectize-item {
+    display: inline-block;
+    margin: 4px 0px 4px 4px;
+    padding: 2px 6px 3px 6px;
+    color: $text;
+    background-color: $bg;
+    font-size: inherit;
+  }
+
+  .selectize-container .selectize-item-text {
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .selectize-container .selectize-input {
+    font-family: inherit;
+    color: inherit;
+    font-size: inherit;
+    margin: 6px 4px 7px 4px;
+    padding: 0;
+    padding-top: 1px;
+    min-width: 20px;
+    border: 0;
+    outline: none;
+  }
+
+}
